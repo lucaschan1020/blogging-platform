@@ -1,0 +1,23 @@
+services:
+  blogging-platform:
+    build:
+      context: ./blogging-platform
+      dockerfile: ./Dockerfile.dev
+    image: lucaschan1020/blogging-platform
+    env_file:
+      - ./blogging-platform/.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - /usr/src/app/node_modules
+      # - /usr/src/app/dist
+      - ./blogging-platform:/usr/src/app
+
+  mysql:
+    image: mysql:8.0
+    env_file:
+      - ./mysql/.env
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql/data:/var/lib/mysql
